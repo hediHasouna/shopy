@@ -1,3 +1,23 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
+
+app_login:
+    path: /login
+    controller: App\Controller\LoginController::index
+
+app_logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout
+    methods: GET
+
+app_login_control:
+    path: /loginControl
+    controller: App\Controller\LoginRedirectController::index
+
+app_ordertocsv:
+    path: /orders-to-csv
+    controller: App\Controller\OrderToCsvController::index
+app_ordertocsvAPI:
+    path: /orders-to-csv-api
+    controller: App\Controller\OrderToCsvApiController::index

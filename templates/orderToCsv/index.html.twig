@@ -1,0 +1,366 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12 col-lg-4">
+				<div class="iq-card">
+					<div class="iq-card-header d-flex justify-content-between">
+						<div class="iq-header-title">
+							<h4 class="card-title">Exporter en fichier CSV</h4>
+						</div>
+					</div>
+					<div class="iq-card-body">
+						<form action="{{ path('app_ordertocsvAPI') }}" method="post">
+							<button type="submit" class="btn btn-primary btn-block" name="csv">Exporter CSV</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 col-lg-8">
+				<div class="iq-card">
+					<div class="iq-card-header d-flex justify-content-between">
+						<div class="iq-header-title">
+							<h4 class="card-title">Ajouter Commande</h4>
+						</div>
+					</div>
+					<div class="iq-card-body">
+						<form method="POST">
+							<div class="form-group">
+								<label for="orderId">Order Id :</label>
+								<input type="text" id="orderId" class="form-control" name="orderId" placeholder="Order Id">
+							</div>
+							<div class="form-group">
+								<label for="deliveryName">Delivery Name :</label>
+								<input type="text" id="deliveryName" class="form-control" name="deliveryName" placeholder="Delivery Name">
+							</div>
+							<div class="form-group">
+								<label for="deliveryAdresse">Delivery Adresse :</label>
+								<input type="text" id="deliveryAdresse" class="form-control" name="deliveryAdresse" placeholder="Delivery Adresse">
+							</div>
+							<div class="form-group">
+								<label for="deliveryCountry">Delivery Country :</label>
+								<select class="form-control" id="deliveryCountry" name="deliveryCountry">
+									<option selected="" disabled="">Select Country</option>
+									<option value="TN">TN</option>
+									<option value="FR">FR</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="zipcode">Delivery ZipCode :</label>
+								<input type="number" class="form-control" name="zipcode" placeholder="0">
+							</div>
+							<div class="form-group">
+								<label for="deliveryCity">Delivery City :</label>
+								<input type="text" id="deliveryCity" class="form-control" name="deliveryCity" placeholder="Delivery City">
+							</div>
+							<button type="submit" class="btn btn-primary mb-3">Ajouter</button>
+						</form>
+					</div>
+					<div class="iq-card-body">
+						<div class="table-responsive">
+							{% if commandes is empty %}
+								Pas de commandes à afficher
+							{% else %}
+								<table id="datatable" class="table table-striped table-bordered">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Delivery Name</th>
+											<th>Delivery Adresse</th>
+											<th>Delivery Country</th>
+											<th>Zip Code</th>
+											<th>Edit/Delete</th>
+										</tr>
+									</thead>
+									{% for commande in commandes %}
+										<tr class="deleteCommande{{ commande.id }}">
+											<td>{{ commande.id }}</td>
+											<td>{{ commande.deliveryName }}</td>
+											<td>{{ commande.deliveryAdresse }}</td>
+											<td>{{ commande.deliveryCountry }}</td>
+											<td>{{ commande.deliveryZipCode }}</td>
+											<td>
+												<span class="table-remove">
+													<button type="button" class="btn iq-bg-success btn-rounded btn-sm my-0 editButton" rel={{ commande.id }} data-toggle="modal" data-target="#modifierModel{{ commande.id }}">Edit</button>
+													<div class="modal fade" id="modifierModel{{ commande.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+														<div class="modal-dialog modal-dialog-scrollable" role="document">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title" id="exampleModalScrollableTitle">Modifier Commande</h5>
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																		<span aria-hidden="true">&times;</span>
+																	</button>
+																</div>
+																<div class="modal-body">
+																	<form method="POST">
+																		<div class="form-group">
+																			<label for="orderIdEdit">Order Id :</label>
+																			<input type="text" id="orderIdEdit" class="form-control" name="orderIdEdit" value={{ commande.orderId }} placeholder="Order Id">
+																		</div>
+																		<div class="form-group">
+																			<label for="deliveryNameEdit">Delivery Name :</label>
+																			<input type="text" id="deliveryNameEdit" class="form-control" name="deliveryNameEdit" value={{ commande.deliveryName }} placeholder="Delivery Name">
+																		</div>
+																		<div class="form-group">
+																			<label for="deliveryAdresseEdit">Delivery Adresse :</label>
+																			<input type="text" id="deliveryAdresseEdit" class="form-control" name="deliveryAdresseEdit" value={{ commande.deliveryAdresse }} placeholder="Delivery Adresse">
+																		</div>
+																		<div class="form-group">
+																			<label for="deliveryCountryEdit">Delivery Country :</label>
+																			<select class="form-control" id="deliveryCountryEdit" name="deliveryCountryEdit">
+																				{% if commande.deliveryCountry == 'TN' %}
+																					<option value="TN" selected>TN</option>
+																					<option value="FR">FR</option>
+																				{% else %}
+																					<option value="FR" selected>FR</option>
+																					<option value="TN">TN</option>
+																				{% endif %}
+																			</select>
+																		</div>
+																		<div class="form-group">
+																			<label for="zipcodeEdit">Delivery ZipCode :</label>
+																			<input type="number" class="form-control" name="zipcodeEdit" placeholder="0" value={{ commande.deliveryZipCode }}>
+																		</div>
+																		<div class="form-group">
+																			<label for="deliveryCityEdit">Delivery City :</label>
+																			<input type="text" id="deliveryCityEdit" class="form-control" name="deliveryCityEdit" placeholder="Delivery City" value={{ commande.deliveryCity }}>
+																		</div>
+																		<input type="hidden" name="hiddenValue" value={{ commande.id }}/>
+
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+																		<button type="submit" class="btn btn-primary">Enregistrer</button>
+																	</div>
+																</form>
+															</div>
+														</div>
+													</div>
+												</span>
+												<span class="table-remove">
+													<button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0 deleteButton" rel={{ commande.id }}>Remove</button>
+												</span>
+											</td>
+										</tr>
+									{% endfor %}
+									<tfoot>
+										<tr>
+											<th>ID</th>
+											<th>Delivery Name</th>
+											<th>Delivery Adresse</th>
+											<th>Delivery Country</th>
+											<th>Zip Code</th>
+											<th>Edit/Delete</th>
+										</tr>
+									</tfoot>
+								</table>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 col-lg-4">
+				<div class="iq-card"></div>
+			</div>
+			<div class="col-sm-12 col-lg-8">
+				<div class="iq-card">
+					<div class="iq-card-header d-flex justify-content-between">
+						<div class="iq-header-title">
+							<h4 class="card-title">Ajouter Articles</h4>
+						</div>
+					</div>
+					<div class="iq-card-body">
+						<form method="POST">
+							<div class="form-group">
+								<label for="commande">Commandes :</label>
+								<select class="form-control" id="commande" name="commande">
+									<option selected="" disabled="">Select Commande</option>
+									{% for commande in commandes %}
+										<option value={{ commande.id }}>{{ commande.deliveryName }}</option>
+									{% endfor %}
+								</select>
+								<div class="form-group">
+									<label for="itemId">Item Id :</label>
+									<input type="text" id="itemId" class="form-control" name="itemId" placeholder="Item Id">
+								</div>
+								<div class="form-group">
+									<label for="itemQuantity">Item Quantity :</label>
+									<input type="number" class="form-control" name="itemQuantity" placeholder="0">
+								</div>
+								<div class="form-group">
+									<label for="linePriceExclVat">Line Price Excl Vat :</label>
+									<input type="text" id="linePriceExclVat" class="form-control" name="linePriceExclVat" placeholder="0">
+								</div>
+								<div class="form-group">
+									<label for="linePriceInclVat">Line Price Inc Vat :</label>
+									<input type="text" id="linePriceInclVat" class="form-control" name="linePriceInclVat" placeholder="0">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-primary mb-3">Ajouter</button>
+						</form>
+					</div>
+					<div class="iq-card-body">
+						<div class="table-responsive">
+							{% if articles is empty %}
+								Pas d'articles à afficher
+							{% else %}
+								<table id="datatable" class="table table-striped table-bordered">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Delivery Name</th>
+											<th>Item Id</th>
+											<th>Item Quantity</th>
+											<th>Line Price Excl Vat</th>
+											<th>Line Price Incl Vat</th>
+											<th>Edit/Delete</th>
+										</tr>
+									</thead>
+									{% for article in articles %}
+										<tr class="deleteArticle{{ article.id }}">
+											<td>{{ article.id }}</td>
+											<td>{{ article.idCommande.deliveryName }}</td>
+											<td>{{ article.itemId }}</td>
+											<td>{{ article.itemQuantity }}</td>
+											<td>{{ article.linePriceExclVat }}</td>
+											<td>{{ article.linePriceInclVat }}</td>
+											<td>
+												<span class="table-remove">
+													<button type="button" class="btn iq-bg-success btn-rounded btn-sm my-0 editButton" rel={{ article.id }} data-toggle="modal" data-target="#modifierArticle{{ article.id }}">Edit</button>
+												</span>
+												<div class="modal fade" id="modifierArticle{{ article.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+													<div class="modal-dialog modal-dialog-scrollable" role="document">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="exampleModalScrollableTitle">Modifier Article</h5>
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+																<form method="POST">
+																	<div class="form-group">
+																		<label for="CommandeEdit">Commande :</label>
+																		<select class="form-control" id="CommandeEdit" name="CommandeEdit">
+																			{% for commande in commandes %}
+																				{% if commande.id == article.idCommande.id %}
+																					<option value={{ commande.id }} selected>{{ commande.deliveryName }}</option>
+																				{% else %}
+																					<option value={{ commande.id }}>{{ commande.deliveryName }}</option>
+																				{% endif %}
+																			{% endfor %}
+																		</select>
+																	</div>
+																	<div class="form-group">
+																		<label for="itemIdEdit">Item Id :</label>
+																		<input type="text" id="itemIdEdit" class="form-control" name="itemIdEdit" value={{ article.itemId }} placeholder="Item Id">
+																	</div>
+																	<div class="form-group">
+																		<label for="itemQuantityEdit">Item Quantity :</label>
+																		<input type="number" id="itemQuantityEdit" class="form-control" name="itemQuantityEdit" value={{ article.itemQuantity }} placeholder="Item Quantity">
+																	</div>
+																	<div class="form-group">
+																		<label for="linePriceExclVatEdit">Line Price Excl Vat :</label>
+																		<input type="text" id="linePriceExclVatEdit" class="form-control" name="linePriceExclVatEdit" value={{ article.linePriceExclVat }} placeholder="Line Price Excl Vat">
+																	</div>
+																	<div class="form-group">
+																		<label for="linePriceInclVatEdit">Line Price Incl Vat :</label>
+																		<input type="text" id="linePriceInclVatEdit" class="form-control" name="linePriceInclVatEdit" value={{ article.linePriceInclVat }} placeholder="Line Price Incl Vat">
+																	</div>
+																	<input type="hidden" name="hiddenArticle" value={{ article.id }}/>
+
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+																	<button type="submit" class="btn btn-primary">Enregistrer</button>
+																</div>
+															</form>
+														</div>
+													</div>
+												</div>
+												<span class="table-remove">
+													<button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0 deleteArticleButton" rel={{ article.id }}>Remove</button>
+												</span>
+											</td>
+										</tr>
+									{% endfor %}
+									<tfoot>
+										<tr>
+											<th>ID</th>
+											<th>Delivery Name</th>
+											<th>Item Id</th>
+											<th>Item Quantity</th>
+											<th>Line Price Excl Vat</th>
+											<th>Line Price Incl Vat</th>
+											<th>Edit/Delete</th>
+										</tr>
+									</tfoot>
+								</table>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script src="{{ asset('js/jquery.min.js') }}"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script>
+		$('.deleteArticleButton').on('click', function () {
+			var id = $(this).attr('rel')
+	Swal.fire({
+		title: 'Êtes-vous sûr?',
+		text: "Vous ne pourrez pas revenir en arrière !",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Oui, supprimez-le !'
+	}).then((result) => {
+		if (result.isConfirmed) {
+		$.post( "{{ path('app_ordertocsv') }}", {idArticle: id}, function() {
+			
+		}).done(function() {
+			$('.deleteArticle'+id).remove()
+			Swal.fire('Supprimé !', 'L\'article a été supprimé.', 'success')
+		}).fail(function() {
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Quelque chose s\'est mal passé !'
+		})
+		})
+		}
+	})
+		})
+	$('.deleteButton').on('click', function(){
+		var id = $(this).attr('rel')
+		Swal.fire({
+		title: 'Êtes-vous sûr?',
+		text: "Vous ne pourrez pas revenir en arrière !",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Oui, supprimez-le !'
+		}).then((result) => {
+		if (result.isConfirmed) {
+		$.post( "{{ path('app_ordertocsv') }}", {idCommande: id}, function() {
+			
+		}).done(function() {
+			$('.deleteCommande'+id).remove()
+			Swal.fire('Supprimé !', 'L\'article a été supprimé.', 'success')
+		}).fail(function() {
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'Quelque chose s\'est mal passé !'
+		})
+		})
+		}
+	})
+	})
+	</script>
+{% endblock %}

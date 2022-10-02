@@ -1,19 +1,147 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+<!doctype html>
+<html lang="en">
+   <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>Administration</title>
+      <!-- Favicon -->
+      <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+      <!-- Typography CSS -->
+      <link rel="stylesheet" href="{{ asset('css/typography.css') }}">
+      <!-- Style CSS -->
+      <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+      <!-- Responsive CSS -->
+      <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+      <link rel="stylesheet" href="{{ asset('/css/remixicon.css') }}">
+   </head>
+   <body>
+      <!-- loader Start -->
+      <div id="loading">
+         <div id="loading-center">
+         </div>
+      </div>
+      <!-- loader END -->
+      <!-- Wrapper Start -->
+      <div class="wrapper">
+         <!-- Sidebar  -->
+         <div class="iq-sidebar">
+            <div class="iq-sidebar-logo d-flex justify-content-between">
+               <a href="index.html">
+               <img src="images/logo.png" class="img-fluid" alt="">
+               <span>Shopy</span>
+               </a>
+               <div class="iq-menu-bt-sidebar">
+                  <div class="iq-menu-bt align-self-center">
+                     <div class="wrapper-menu">
+                        <div class="main-circle"><i class="ri-more-fill"></i></div>
+                           <div class="hover-circle"><i class="ri-more-2-fill"></i></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div id="sidebar-scrollbar">
+               <nav class="iq-sidebar-menu">
+                  <ul id="iq-sidebar-toggle" class="iq-menu">
+                     <li class="iq-menu-title"><i class="ri-subtract-line"></i><span>Outils</span></li>
+                     <li>
+                        <a href="{{ path('app_ordertocsv') }}" class="iq-waves-effect"><i class="ri-table-fill"></i><span>Commandes</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                     </li>
+                     <li>
+                        <a href="{{ path('app_logout') }}" class="iq-waves-effect"><i class="ri-logout-box-fill"></i><span>Déconnexion</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                     </li>
+                  </ul>
+               </nav>
+               <div class="p-3"></div>
+            </div>
+         </div>
+         <!-- Responsive Breadcrumb End-->
+         <!-- Page Content  -->
+         <div id="content-page" class="content-page">
+            <!-- TOP Nav Bar -->
+            <div class="iq-top-navbar">
+               <div class="iq-navbar-custom">
+                  <div class="iq-sidebar-logo">
+                     <div class="top-logo">
+                     </div>
+                  </div>
+                  <nav class="navbar navbar-expand-lg navbar-light p-0">
+                     <div class="iq-search-bar">
+                        <form action="#" class="searchbox">
+                           <input type="text" class="text search-input" placeholder="Type here to search...">
+                           <a class="search-link" href="#"><i class="ri-search-line"></i></a>
+                        </form>
+                     </div>
+                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                     <i class="ri-menu-3-line"></i>
+                     </button>
+                     <div class="iq-menu-bt align-self-center">
+                        <div class="wrapper-menu">
+                           <div class="main-circle"><i class="ri-more-fill"></i></div>
+                           <div class="hover-circle"><i class="ri-more-2-fill"></i></div>
+                        </div>
+                     </div>
+                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                     </div>
+                     <ul class="navbar-list">
+                        <li>
+                           <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
+                           </a>
+                        </li>
+                     </ul>
+                  </nav>
+               </div>
+            </div>
+            <!-- TOP Nav Bar END -->
+            {% block body %}
+            {% endblock %}
+            <!-- Footer -->
+            <footer class="bg-white iq-footer">
+               <div class="container-fluid">
+                  <div class="row">
+                     <div class="col-lg-6 text-right">
+                        Copyright 2022 All Rights Reserved.
+                     </div>
+                  </div>
+               </div>
+            </footer>
+            <!-- Footer END -->
+         </div>
+      </div>
+      <!-- Wrapper END -->
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="{{ asset('js/jquery.min.js') }}"></script>
+      <script src="{{ asset('js/popper.min.js') }}"></script>
+      <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+      <!-- Appear JavaScript -->
+      <script src="{{ asset('js/jquery.appear.js') }}"></script>
+      <!-- Countdown JavaScript -->
+      <script src="{{ asset('js/countdown.min.js') }}"></script>
+      <!-- Counterup JavaScript -->
+      <script src="{{ asset('js/waypoints.min.js') }}"></script>
+      <script src="{{ asset('js/jquery.counterup.min.js') }}"></script>
+      <!-- Wow JavaScript -->
+      <script src="{{ asset('js/wow.min.js') }}"></script>
+      <!-- Apexcharts JavaScript -->
+      <script src="{{ asset('js/apexcharts.js') }}"></script>
+      <!-- Slick JavaScript -->
+      <script src="{{ asset('js/slick.min.js') }}"></script>
+      <!-- Select2 JavaScript -->
+      <script src="{{ asset('js/select2.min.js') }}"></script>
+      <!-- Owl Carousel JavaScript -->
+      <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+      <!-- Magnific Popup JavaScript -->
+      <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
+      <!-- Smooth Scrollbar JavaScript -->
+      <script src="{{ asset('js/smooth-scrollbar.js') }}"></script>
+      <!-- lottie JavaScript -->
+      <script src="{{ asset('js/lottie.js') }}"></script>
+      <!-- Chart Custom JavaScript -->
+      <script src="{{ asset('js/chart-custom.js') }}"></script>
+      <!-- Custom JavaScript -->
+      <script src="{{ asset('js/custom.js') }}"></script>
+   </body>
 </html>
