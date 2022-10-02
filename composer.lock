@@ -2907,7 +2907,7 @@
             },
             "require": {
                 "ext-pdo": "*",
-                "php": "^7.2"
+                "php": "^7.*"
             },
             "type": "library",
             "autoload": {
