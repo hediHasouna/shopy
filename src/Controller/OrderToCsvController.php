@@ -13,11 +13,11 @@ class OrderToCsvController extends AbstractController
     public function index(): Response
     {
         //récupération du commandes
-        $repository = $this->getDoctrine()->getRepository(commande::class);
+        $repository = $this->getDoctrine()->getRepository(Commande::class);
         $commandes = $repository->findAll();
 
         //récupération d'articles
-        $repository = $this->getDoctrine()->getRepository(article::class);
+        $repository = $this->getDoctrine()->getRepository(Article::class);
         $articles = $repository->findAll();
 
         //l'ajout du nouvelle commande

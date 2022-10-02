@@ -38,7 +38,7 @@ class Article
     private $linePriceInclVat;
 
     /**
-     * @ORM\ManyToOne(targetEntity=commande::class, inversedBy="articles")
+     * @ORM\ManyToOne(targetEntity=Commande::class, inversedBy="articles")
      */
     private $idCommande;
 
