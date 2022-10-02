@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7eab2b94c8d99e17c4e76a137343163",
+    "content-hash": "9aef91245677c860cd416c23c9be1cee",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2890,47 +2890,6 @@
                 "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v6.2.8"
             },
             "time": "2022-09-05T16:44:56+00:00"
-        },
-        {
-            "name": "sujan/php-csv-exporter",
-            "version": "v2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sujancse/php-csv-exporter.git",
-                "reference": "bdf580c0fc87a4de76b5aee0c235c7b53acccd51"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sujancse/php-csv-exporter/zipball/bdf580c0fc87a4de76b5aee0c235c7b53acccd51",
-                "reference": "bdf580c0fc87a4de76b5aee0c235c7b53acccd51",
-                "shasum": ""
-            },
-            "require": {
-                "ext-pdo": "*",
-                "php": "^7.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Sujan\\Exporter\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Sujan Mahmud",
-                    "email": "sujancseruet@gmail.com"
-                }
-            ],
-            "description": "A PHP library to export data to csv, xlsx etc",
-            "support": {
-                "issues": "https://github.com/sujancse/php-csv-exporter/issues",
-                "source": "https://github.com/sujancse/php-csv-exporter/tree/v2.1.0"
-            },
-            "time": "2020-01-23T09:02:49+00:00"
         },
         {
             "name": "symfony/amqp-messenger",
